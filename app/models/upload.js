@@ -15,8 +15,8 @@ const uploadSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     }, 
-    tags: {
-        type: [String]
+    tag: {
+        type: String
     }
 }, {
     timestamps: true

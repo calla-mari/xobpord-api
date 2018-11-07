@@ -9,7 +9,7 @@ curl "${API}${URL_PATH}/${ID}" \
   --header "Authorization: Bearer ${TOKEN}" \
   -F "image=@/Users/zack/wdi/projects/Project 3/third-project-api/data/padawan.png" \
   -F "title=${TITLE}" \
-  -F "tags[]=${TAG1}" \
-  -F "tags[]=${TAG2}"
+  -F "tag=${TAG}" 
+
 
 echo

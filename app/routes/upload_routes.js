@@ -56,7 +56,7 @@ router.post('/uploads', [requireToken, upload.single('image')], (req, res) => {
                 owner: req.user.id,
                 title: response.key,
                 url: response.Location,
-                tags: req.body.tags
+                tag: req.body.tag
             }
             return Upload.create(params)
         })
