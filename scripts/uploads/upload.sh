@@ -7,7 +7,7 @@ curl "${API}${URL_PATH}" \
   --include \
   --request POST \
   --header "Authorization: Bearer ${TOKEN}" \
-  -F "image=@/home/callamari/winhome/wdi/projects/xobpord/Xobpord/data/images/padawan.png" \
+  -F "image=@/Users/zack/wdi/projects/Project 3/third-project-api/data/padawan.png" \
   -F "title=${TITLE}" \
   -F "tags[]=${TAG1}" \
   -F "tags[]=${TAG2}"

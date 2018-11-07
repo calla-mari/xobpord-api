@@ -3,14 +3,13 @@
 API="http://localhost:4741"
 URL_PATH="/uploads"
 
-curl "${API}${URL_PATH}/${ID}" \
+curl "${API}${URL_PATH}" \
   --include \
   --request PATCH \
   --header "Authorization: Bearer ${TOKEN}" \
-  -F "image=@/home/callamari/winhome/wdi/projects/xobpord/Xobpord/data/images/padawan.png" \
+  -F "image=@/Users/zack/wdi/projects/Project 3/third-project-api/data/padawan.png" \
   -F "title=${TITLE}" \
   -F "tags[]=${TAG1}" \
   -F "tags[]=${TAG2}"
-
 
 echo
