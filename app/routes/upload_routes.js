@@ -75,49 +75,13 @@ router.patch('/uploads/:id', requireToken, (req, res) => {
     Upload.findById(req.params.id)
         .then(handle404)
         .then(upload => {
+            requireOwnership(req, upload)
             Object.keys(req.body.upload).forEach(key => req.body.upload[key] === '' ? delete req.body.upload[key] : '')
             return upload.update(req.body.upload)
         })
         .then(() => res.sendStatus(204))
         .catch(err => handle(err, res))
 })
-
-// router.patch('./uploads/:id', requireToken, (req, res) => {
-//     // user should not be able to change owner
-//     delete req.body.upload.owner
-//     delete req.body.upload.url
-//     delete req.body.upload.title
-
-//     Upload.findById(req.params.id)
-//         .then(handle404)
-//         .then(upload => {
-//             if (req.user.id.localeCompare(upload.owner) === 0) {
-//                 s3Delete(upload.title)
-//                     .then(() => upload.remove())
-//                     .then(() => res.sendStatus(204))
-//                     .catch(err => handle(err, res))
-//             } else {
-//                 res.sendStatus(403)
-//             }
-//         })
-//         .then(s3Upload(req.file.path, req.file.originalname, req.body.title))
-//         .then(response => {
-//             fs.unlinkSync(req.file.path)
-//             return response
-//         })
-//         .then(response => {
-//             const params = {
-//                 owner: req.user.id,
-//                 title: response.key,
-//                 url: response.Location,
-//                 tags: req.body.tags
-//             }
-//             console.log(params)
-//             return Upload.create(params)
-//         })
-//         .then(upload => res.status(201).json({upload: upload}))
-//         .catch(err => handle(err, res))
-// })
 
 // DESTROY
 router.delete('/uploads/:id', requireToken, (req, res) => {
