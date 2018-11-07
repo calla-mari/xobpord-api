@@ -58,7 +58,6 @@ router.post('/uploads', [requireToken, upload.single('image')], (req, res) => {
                 url: response.Location,
                 tags: req.body.tags
             }
-            console.log(params)
             return Upload.create(params)
         })
         .then(upload => res.status(201).json({upload: upload}))
