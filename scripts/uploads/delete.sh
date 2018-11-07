@@ -6,6 +6,7 @@ URL_PATH="/uploads"
 curl "${API}${URL_PATH}/${ID}" \
   --include \
   --request DELETE \
-  --header "Authorization: Bearer ${TOKEN}"
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer ${TOKEN}" 
 
 echo

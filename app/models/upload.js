@@ -16,8 +16,7 @@ const uploadSchema = new mongoose.Schema({
         required: true
     }, 
     tags: {
-        type: [String],
-        required: true
+        type: [String]
     }
 }, {
     timestamps: true

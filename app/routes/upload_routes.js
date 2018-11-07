@@ -1,3 +1,6 @@
+const multer = require('multer')
+const upload = multer({ dest: 'data/uploads/' })
+const fs = require('fs')
 const express = require('express')
 const passport = require('passport')
 
@@ -13,6 +16,9 @@ const handle404 = customErrors.handle404
 const requireOwnership = customErrors.requireOwnership
 // require a valid token to be passed with requests
 const requireToken = passport.authenticate('bearer', {session: false})
+
+const s3Upload = require('../../lib/aws-s3-upload')
+const s3Delete = require('../../lib/aws-s3-delete')
 
 const router = express.Router()
 
@@ -39,15 +45,24 @@ router.get('/uploads/:id', requireToken, (req, res) => {
 })
 
 // CREATE
-router.post('/uploads', requireToken, (req, res) => {
-    console.log(req.body)
-    // set owner to current user
-    req.body.upload.owner = req.user.id
-    // create using the request body
-    Upload.create(req.body.upload)
-        // first callback defines sending the client a 201 status code and an upload object as JSON
-        // second callback defined handling an error
-        .then(upload => res.status(201).json({ upload: upload.toObject()}), err => handle(err, res))
+router.post('/uploads', [requireToken, upload.single('image')], (req, res) => {
+    s3Upload(req.file.path, req.file.originalname, req.body.title)
+        .then(response => {
+            fs.unlinkSync(req.file.path)
+            return response
+        })
+        .then(response => {
+            const params = {
+                owner: req.user.id,
+                title: response.key,
+                url: response.Location,
+                tags: req.body.tags
+            }
+            console.log(params)
+            return Upload.create(params)
+        })
+        .then(upload => res.status(201).json({upload: upload}))
+        .catch(err => handle(err, res))
 })
 
 // UPDATE
@@ -68,8 +83,16 @@ router.patch('./uploads/:id', requireToken, (req, res) => {
 router.delete('/uploads/:id', requireToken, (req, res) => {
     Upload.findById(req.params.id)
         .then(handle404)
-        .then(upload => upload.remove())
-        .then(() => res.sendStatus(204))
+        .then(upload => {
+            if (req.user.id.localeCompare(upload.owner) === 0) {
+                s3Delete(upload.title)
+                    .then(() => upload.remove())
+                    .then(() => res.sendStatus(204))
+                    .catch(err => handle(err, res))
+            } else {
+                res.sendStatus(403)
+            }
+        })
         .catch(err => handle(err, res))
 })
 
