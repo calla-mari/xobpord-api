@@ -66,7 +66,7 @@ router.post('/uploads', [requireToken, upload.single('image')], (req, res) => {
 })
 
 // UPDATE
-router.patch('./uploads/:id', requireToken, (req, res) => {
+router.patch('/uploads/:id', requireToken, (req, res) => {
     // user should not be able to change owner
     delete req.body.upload.owner
     delete req.body.upload.url
