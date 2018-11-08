@@ -4,7 +4,7 @@
 
 ## Description
 
-This application allows users to upload image files to a database where all users can upload, view and download all files in the database.  In addition, the owners of the files have the permision to edit and delete their own files.  
+This application allows users to upload image files to a database where all users can upload, view and download all files in the database.  In addition, the owners of the files have the permision to edit and delete their own files.
 
 ## Technologies used
 
@@ -56,3 +56,13 @@ The process started with planning a user story and ERD, then the wireframe just 
 
 [Server Repository](https://github.com/Plastic-Murder/third-project-api)
 
+## Routing
+```js
+router.get('/uploads', requireToken, (req, res) => {}
+
+router.post('/uploads', [requireToken, upload.single('image')], (req, res) => {}
+
+router.patch('/uploads/:id', requireToken, (req, res) => {}
+
+router.delete('/uploads/:id', requireToken, (req, res) => {}
+```
