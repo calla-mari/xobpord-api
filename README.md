@@ -1,4 +1,4 @@
-[![Xobpord](https://i.imgur.com/pho4qb5.png)](https://plastic-murder.github.io/third-project-client/)
+[![Xobpord](https://i.imgur.com/pho4qb5.png)](https://calla-mari.github.io/xobpord-client/)
 
 # Xobpord
 
@@ -46,15 +46,15 @@ The process started with planning a user story and ERD, then the wireframe just 
 
 ## Xobpord Client
 
-[Client Website](https://plastic-murder.github.io/third-project-client/)
+[Client Website](https://calla-mari.github.io/xobpord-client/)
 
-[Client Repository](https://github.com/Plastic-Murder/third-project-client)
+[Client Repository](https://github.com/calla-mari/xobpord-client)
 
 ## Xobpord Server
 
-[Server Website](https://xobpord.herokuapp.com/)
+[Server Website](https://xobpord2.herokuapp.com/)
 
-[Server Repository](https://github.com/Plastic-Murder/third-project-api)
+[Server Repository](https://github.com/calla-mari/xobpord-api)
 
 ## Routing
 ```js
