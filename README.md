@@ -52,7 +52,7 @@ The process started with planning a user story and ERD, then the wireframe just 
 
 ## Xobpord Server
 
-[Server Website](https://xobpord2.herokuapp.com/)
+[Server Website](https://xobpord-server.herokuapp.com/)
 
 [Server Repository](https://github.com/calla-mari/xobpord-api)
 
